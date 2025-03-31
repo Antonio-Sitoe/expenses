@@ -6,11 +6,10 @@ import 'package:intl/intl.dart';
 class TransitionsList extends StatelessWidget {
   final List<Transaction> transations;
 
-  const TransitionsList(this.transations);
+  const TransitionsList(this.transations, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Column(
       children:
           transations
