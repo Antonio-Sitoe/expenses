@@ -65,24 +65,13 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _openTransactionFormModal(BuildContext context) {
-    Future.delayed(Duration.zero, () {
-      showModalBottomSheet(
-        context: context,
-        builder: (ctx) {
-          return TransactionForm(_addTransaction);
-        },
-      );
-    });
+    showModalBottomSheet(
+      context: context,
+      builder: (ctx) {
+        return TransactionForm(_addTransaction);
+      },
+    );
   }
-
-  // _openTransactionFormModal(BuildContext context) {
-  //   showModalBottomSheet(
-  //     context: context,
-  //     builder: (ctx) {
-  //       return TransactionForm(_addTransaction);
-  //     },
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: _openTransactionFormModal(context),
+        onPressed: () => _openTransactionFormModal(context),
         backgroundColor: Colors.blue,
         child: Icon(Icons.add, color: Colors.white),
       ),
