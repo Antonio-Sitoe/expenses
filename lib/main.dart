@@ -12,7 +12,29 @@ class ExpensesApp extends StatelessWidget {
   const ExpensesApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: MyHomePage());
+    return MaterialApp(
+      home: MyHomePage(),
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+        colorScheme: ThemeData().colorScheme.copyWith(secondary: Colors.amber),
+        fontFamily: 'QuickSand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+          titleMedium: TextStyle(
+            fontFamily: "OpenSans",
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        appBarTheme: AppBarTheme(
+          toolbarTextStyle: ThemeData.light().textTheme.bodyMedium,
+          titleTextStyle: TextStyle(
+            fontFamily: "OpenSans",
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -23,30 +45,30 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final _transations = [
-    Transaction(
-      id: "123",
-      date: DateTime.now(),
-      value: 321,
-      title: "Novo Tenis de corrida",
-    ),
-    Transaction(
-      id: "12",
-      date: DateTime.now(),
-      value: 567,
-      title: "Novo Carro de corrida",
-    ),
-    Transaction(
-      id: "1",
-      date: DateTime.now(),
-      value: 987,
-      title: "Novo Ferrari de corrida",
-    ),
-    Transaction(
-      id: "124",
-      date: DateTime.now(),
-      value: 32,
-      title: "Novo Toyota de corrida",
-    ),
+    // Transaction(
+    //   id: "123",
+    //   date: DateTime.now(),
+    //   value: 321,
+    //   title: "Novo Tenis de corrida",
+    // ),
+    // Transaction(
+    //   id: "12",
+    //   date: DateTime.now(),
+    //   value: 567,
+    //   title: "Novo Carro de corrida",
+    // ),
+    // Transaction(
+    //   id: "1",
+    //   date: DateTime.now(),
+    //   value: 987,
+    //   title: "Novo Ferrari de corrida",
+    // ),
+    // Transaction(
+    //   id: "124",
+    //   date: DateTime.now(),
+    //   value: 32,
+    //   title: "Novo Toyota de corrida",
+    // ),
   ];
 
   _addTransaction(String title, double value) {
@@ -61,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _transations.add(newTransition);
     });
 
-    Navigator.of(context);
+    Navigator.of(context).pop();
   }
 
   _openTransactionFormModal(BuildContext context) {
@@ -77,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Personal Expenses"),
+        title: Text("Despesas Pessoais", style: TextStyle()),
         actions: [
           IconButton(
             onPressed: () => _openTransactionFormModal(context),
@@ -85,7 +107,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -93,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               child: Card(
                 elevation: 5,
-                color: Colors.blue,
+                color: Theme.of(context).primaryColor,
                 child: Text("Chart"),
               ),
             ),
@@ -104,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () => _openTransactionFormModal(context),
-        backgroundColor: Colors.blue,
+        backgroundColor: Theme.of(context).primaryColor,
         child: Icon(Icons.add, color: Colors.white),
       ),
     );
