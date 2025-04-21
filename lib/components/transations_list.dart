@@ -19,9 +19,13 @@ class TransitionsList extends StatelessWidget {
                     "Nenhuma transacao cadastrada",
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
+                  SizedBox(height: 20),
                   Container(
                     height: 200,
-                    child: Image.asset('assets/images/none.png'),
+                    child: Image.asset(
+                      'assets/images/none.png',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ],
               )
