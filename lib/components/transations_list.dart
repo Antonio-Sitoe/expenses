@@ -32,44 +32,23 @@ class TransitionsList extends StatelessWidget {
               : ListView.builder(
                 itemCount: transations.length,
                 itemBuilder: (context, index) {
-                  final transation = transations[index];
+                  final tr = transations[index];
                   return Card(
-                    child: Row(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.symmetric(
-                            vertical: 10,
-                            horizontal: 15,
-                          ),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Theme.of(context).primaryColor,
-                              width: 2,
-                            ),
-                          ),
-                          padding: const EdgeInsets.all(8),
-                          child: Text(
-                            '${transation.value.toStringAsFixed(2)} MT',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
+                    elevation: 5,
+                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                    child: ListTile(
+                      title: Text(
+                        tr.title,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      subtitle: Text(DateFormat('d MMM y').format(tr.date)),
+                      leading: CircleAvatar(
+                        radius: 30,
+                        child: Padding(
+                          padding: EdgeInsets.all(6),
+                          child: FittedBox(child: Text("${tr.value}")),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              transation.title,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              DateFormat('d MMM y').format(transation.date),
-                              style: const TextStyle(color: Colors.grey),
-                            ),
-                          ],
-                        ),
-                      ],
+                      ),
                     ),
                   );
                 },

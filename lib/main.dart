@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:expenses/components/chart.dart';
 import 'package:expenses/components/transations_list.dart';
 import 'package:expenses/components/transaction_form.dart';
 import 'package:expenses/models/transaction.dart';
@@ -69,7 +70,31 @@ class _MyHomePageState extends State<MyHomePage> {
       value: 32,
       title: "Novo Toyota de corrida",
     ),
+    Transaction(
+      id: "3",
+      date: DateTime.now(),
+      value: 1000,
+      title: "Grafos de Misao",
+    ),
+    Transaction(
+      id: "8661",
+      date: DateTime.now(),
+      value: 987,
+      title: "Comida no museu",
+    ),
+    Transaction(
+      id: "987",
+      date: DateTime.now(),
+      value: 1000000,
+      title: "Blocos da obra",
+    ),
   ];
+
+  List<Transaction> get _recentTransactions {
+    return _transations.where((tr) {
+      return tr.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
 
   _addTransaction(String title, double value) {
     final newTransition = Transaction(
@@ -110,16 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              child: Card(
-                elevation: 5,
-                color: Theme.of(context).primaryColor,
-                child: Text("Chart"),
-              ),
-            ),
-            TransitionsList(_transations),
-          ],
+          children: [Chart(_recentTransactions), TransitionsList(_transations)],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
