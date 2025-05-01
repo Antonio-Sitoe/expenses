@@ -25,6 +25,10 @@ class ExpensesApp extends StatelessWidget {
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
+          labelLarge: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         appBarTheme: AppBarTheme(
           toolbarTextStyle: ThemeData.light().textTheme.bodyMedium,
@@ -45,50 +49,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _transations = [
-    Transaction(
-      id: "123",
-      date: DateTime.now(),
-      value: 321,
-      title: "Novo Tenis de corrida",
-    ),
-    Transaction(
-      id: "12",
-      date: DateTime.now(),
-      value: 567,
-      title: "Novo Carro de corrida",
-    ),
-    Transaction(
-      id: "1",
-      date: DateTime.now(),
-      value: 987,
-      title: "Novo Ferrari de corrida",
-    ),
-    Transaction(
-      id: "124",
-      date: DateTime.now(),
-      value: 32,
-      title: "Novo Toyota de corrida",
-    ),
-    Transaction(
-      id: "3",
-      date: DateTime.now(),
-      value: 1000,
-      title: "Grafos de Misao",
-    ),
-    Transaction(
-      id: "8661",
-      date: DateTime.now(),
-      value: 987,
-      title: "Comida no museu",
-    ),
-    Transaction(
-      id: "987",
-      date: DateTime.now(),
-      value: 1000000,
-      title: "Blocos da obra",
-    ),
-  ];
+  final List<Transaction> _transations = [];
 
   List<Transaction> get _recentTransactions {
     return _transations.where((tr) {
@@ -96,10 +57,18 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  _addTransaction(String title, double value) {
+  _deleteTransations(String id) {
+    setState(() {
+      _transations.removeWhere((tr) {
+        return tr.id == id;
+      });
+    });
+  }
+
+  _addTransaction(String title, double value, DateTime date) {
     final newTransition = Transaction(
       id: Random().nextDouble().toString(),
-      date: DateTime.now(),
+      date: date,
       value: value,
       title: title,
     );
@@ -135,7 +104,10 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [Chart(_recentTransactions), TransitionsList(_transations)],
+          children: [
+            Chart(_recentTransactions),
+            TransitionsList(_transations, _deleteTransations),
+          ],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

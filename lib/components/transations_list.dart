@@ -5,12 +5,14 @@ import 'package:intl/intl.dart';
 class TransitionsList extends StatelessWidget {
   final List<Transaction> transations;
 
-  const TransitionsList(this.transations, {super.key});
+  final void Function(String) onRemove;
+
+  const TransitionsList(this.transations, this.onRemove, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 350,
+      height: 400,
       child:
           transations.isEmpty
               ? Column(
@@ -42,6 +44,13 @@ class TransitionsList extends StatelessWidget {
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       subtitle: Text(DateFormat('d MMM y').format(tr.date)),
+                      trailing: IconButton(
+                        onPressed: () {
+                          onRemove(tr.id);
+                        },
+                        icon: Icon(Icons.delete),
+                        color: Theme.of(context).colorScheme.error,
+                      ),
                       leading: CircleAvatar(
                         radius: 30,
                         child: Padding(
